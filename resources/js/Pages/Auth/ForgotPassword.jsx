@@ -28,13 +28,13 @@ export default function ForgotPassword({ status }) {
 
             <form onSubmit={submit}>
                 <TextInput
-                    id="email"
-                    type="email"
-                    name="email"
+                    id="login"
+                    type="text"
+                    name="login"
                     value={data.email}
                     className="mt-1 block w-full"
                     isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
+                    onChange={(e) => setData('login', e.target.value)}
                 />
 
                 <InputError message={errors.email} className="mt-2" />

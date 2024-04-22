@@ -32,16 +32,16 @@ export default function ResetPassword({ token, email }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="login" value="Email / Username" />
 
                     <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
+                        id="login"
+                        type="text"
+                        name="login"
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => setData('login', e.target.value)}
                     />
 
                     <InputError message={errors.email} className="mt-2" />

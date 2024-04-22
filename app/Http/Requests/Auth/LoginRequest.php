@@ -2,16 +2,31 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
+
+    protected $loginField;
+    protected $loginValue;
+
+    protected function prepareForValidation()
+     {
+     $this->loginField = filter_var($this->input('login'),
+     FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+     $this->loginValue = $this->input('login');
+     $this->merge([$this->loginField => $this->loginValue]);
+     }
+
+
+/**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -27,7 +42,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => 'required_without:username|string|email|exists:users,email',
+            'username' => 'required_without:email|string|exists:users,username',
             'password' => ['required', 'string'],
         ];
     }
@@ -37,15 +53,16 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function authenticate()
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+
+        if (! Auth::attempt($this->only($this->loginField, 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'login' => __('auth.failed'),
             ]);
         }
 
