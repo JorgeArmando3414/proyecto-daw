@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cancion;
+use App\Models\Lista;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,8 +18,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'username' => 'Jorge User',
+            'email' => 'jorge@jorge.com',
+            'password' => bcrypt('jorgejorge'),
         ]);
+
+        Lista::factory()->has(Cancion::factory()->count(5))->count(5)->create();
     }
 }
