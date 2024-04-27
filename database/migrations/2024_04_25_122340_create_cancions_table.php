@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('cancions', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('album');
             $table->string('artista');
+            $table->string('genero');
             $table->timestamps();
         });
     }

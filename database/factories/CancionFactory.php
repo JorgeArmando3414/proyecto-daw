@@ -17,8 +17,10 @@ class CancionFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre'=>fake()->sentence(),
-            'artista'=>fake()->firstName(),
+            'nombre' => fake()->sentence(),
+            'album' => fake()->word(),
+            'artista' => fake()->name(),
+            'genero' => fake()->word(),
         ];
     }
 }
