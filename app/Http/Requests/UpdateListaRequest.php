@@ -11,7 +11,7 @@ class UpdateListaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateListaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "nombre" => ['required', 'max:30'],
+            "creado_por" => ['required'],
+            "created_at" => ['required'],
+            "updated_at" => ['required'],
+            "canciones" => ['required'],
         ];
     }
 }

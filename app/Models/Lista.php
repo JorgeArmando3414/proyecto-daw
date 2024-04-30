@@ -16,6 +16,13 @@ class Lista extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+        'creado_por',
+        'created_at',
+        'updated_at',
+    ];
+
     public function cancions()
     {
         return $this->belongsToMany(Cancion::class);

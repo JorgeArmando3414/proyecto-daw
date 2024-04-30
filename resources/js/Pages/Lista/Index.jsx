@@ -1,18 +1,21 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head} from "@inertiajs/react";
 import {useState} from "react";
+import Edit from './Edit.jsx';
 
-export default function Index({ auth, userListas, allCanciones }) {
-    console.log(allCanciones);
+export default function Index({ auth, userListas, allCanciones}) {
 
     const [showModal, setShowModal] = useState(false);
     const [selectedLista, setSelectedLista] = useState(null);
 
-
-
     const openModal = (lista) => {
         setSelectedLista(lista);
         setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedLista(null);
     };
 
     return (
@@ -39,23 +42,7 @@ export default function Index({ auth, userListas, allCanciones }) {
                         ))}
                     </div>
 
-                    {showModal && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
-                            <div className="modal-container bg-white w-96 p-4 rounded-lg">
-                                <div className="modal-header">
-                                    <h2 className="text-lg font-semibold">Edita Lista: {selectedLista.nombre}</h2>
-                                    <button onClick={() => setShowModal(false)}>&times;</button>
-                                </div>
-                                <div className="modal-body">
-                                    {allCanciones.map((cancion, index)=>(
-                                        <ul>
-                                            <li key={index}>{cancion.nombre}</li>
-                                        </ul>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    {showModal && <Edit selectedLista={selectedLista} setShowModal={setShowModal} allCanciones={allCanciones}/>}
                 </div>
             </div>
         </AuthenticatedLayout>

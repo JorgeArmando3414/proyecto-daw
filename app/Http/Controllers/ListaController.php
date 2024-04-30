@@ -55,7 +55,12 @@ class ListaController extends Controller
      */
     public function edit(Lista $lista)
     {
-        //
+        $allCanciones = Cancion::all();
+
+        // Pass the data to the view
+        return inertia('Lista/Edit', [
+            'allCanciones' => $allCanciones,
+        ]);
     }
 
     /**
@@ -63,7 +68,16 @@ class ListaController extends Controller
      */
     public function update(UpdateListaRequest $request, Lista $lista)
     {
-        //
+
+        $lista = Lista::find($request->id);
+
+        $lista->nombre = $request->nombre;
+
+        $lista->save();
+
+        $lista->cancions()->sync($request->canciones);
+
+        return redirect()->route('lista.index')->with('success', 'Lista updated successfully');
     }
 
     /**
