@@ -6,6 +6,7 @@ use App\Models\Cancion;
 use App\Models\Lista;
 use App\Http\Requests\StoreListaRequest;
 use App\Http\Requests\UpdateListaRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ListaController extends Controller
@@ -39,7 +40,12 @@ class ListaController extends Controller
      */
     public function store(StoreListaRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['creado_por']= Auth::id();
+        $lista = Lista::create($data);
+        $lista->cancions()->sync($request->canciones);
+        return to_route('lista.index')
+            ->with('success', 'Lista creada');
     }
 
     /**
@@ -83,8 +89,12 @@ class ListaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lista $lista)
+    public function destroy($id)
     {
-        //
+        $lista = Lista::find($id);
+        $lista->delete();
+        $lista->cancions()->sync([]);
+        return to_route('lista.index')->with('success', 'Lista eliminada');
+
     }
 }

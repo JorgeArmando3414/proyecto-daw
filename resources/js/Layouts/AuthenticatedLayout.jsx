@@ -26,7 +26,7 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink href={route('lista.index')} active={route().current('lista.index')}>
-                                    Listas
+                                    Mis Listas
                                 </NavLink>
                             </div>
                         </div>

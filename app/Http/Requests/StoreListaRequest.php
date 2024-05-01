@@ -11,7 +11,7 @@ class StoreListaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreListaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "nombre" => ['required', 'max:30'],
+            "created_at" => ['required'],
+            "updated_at" => ['required'],
+            "canciones" => ['required', 'array', 'min:1'],
         ];
     }
 }
