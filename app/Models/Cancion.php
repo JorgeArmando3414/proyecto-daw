@@ -9,6 +9,8 @@ class Cancion extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function listas()
     {
         return $this->belongsToMany(Lista::class);

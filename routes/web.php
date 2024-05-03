@@ -3,6 +3,7 @@
 use App\Http\Controllers\CancionController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,8 @@ Route::get('/', function () {
 });
 
 //Route::redirect('/', '/dashboard');
+
+Route::get('/resultados', [SearchController::class, 'search'])->name('resultados');
 
 Route::middleware(['auth','verified'])->group(function (){
     Route::get('/dashboard', fn()=> Inertia::render('Dashboard'))->name('dashboard');

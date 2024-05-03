@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('album');
             $table->string('artista');
             $table->string('genero');
-            $table->timestamps();
         });
     }
 

@@ -16,13 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        $this->call(CancionesTableSeeder::class);
 
         User::factory()->create([
             'username' => 'Jorge User',
             'email' => 'jorge@jorge.com',
             'password' => bcrypt('jorgejorge'),
         ]);
-
-        Lista::factory()->has(Cancion::factory()->count(5))->count(5)->create();
     }
 }

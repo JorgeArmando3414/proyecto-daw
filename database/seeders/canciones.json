@@ -1,0 +1,122 @@
+[
+    {
+        "nombre": "Bohemian Rhapsody",
+        "album": "A Night at the Opera",
+        "artista": "Queen",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Hotel California",
+        "album": "Hotel California",
+        "artista": "Eagles",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Stairway to Heaven",
+        "album": "Led Zeppelin IV",
+        "artista": "Led Zeppelin",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Imagine",
+        "album": "Imagine",
+        "artista": "John Lennon",
+        "genero": "Pop"
+    },
+    {
+        "nombre": "Hey Jude",
+        "album": "Hey Jude",
+        "artista": "The Beatles",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Thriller",
+        "album": "Thriller",
+        "artista": "Michael Jackson",
+        "genero": "Pop"
+    },
+    {
+        "nombre": "Like a Rolling Stone",
+        "album": "Highway 61 Revisited",
+        "artista": "Bob Dylan",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Boogie Wonderland",
+        "album": "I Am",
+        "artista": "Earth, Wind & Fire",
+        "genero": "Disco"
+    },
+    {
+        "nombre": "Smells Like Teen Spirit",
+        "album": "Nevermind",
+        "artista": "Nirvana",
+        "genero": "Grunge"
+    },
+    {
+        "nombre": "Billie Jean",
+        "album": "Thriller",
+        "artista": "Michael Jackson",
+        "genero": "Pop"
+    },
+    {
+        "nombre": "Sweet Child o' Mine",
+        "album": "Appetite for Destruction",
+        "artista": "Guns N' Roses",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "I Will Always Love You",
+        "album": "The Bodyguard",
+        "artista": "Whitney Houston",
+        "genero": "Pop"
+    },
+    {
+        "nombre": "Smells Like Teen Spirit",
+        "album": "Nevermind",
+        "artista": "Nirvana",
+        "genero": "Grunge"
+    },
+    {
+        "nombre": "Another Brick in the Wall",
+        "album": "The Wall",
+        "artista": "Pink Floyd",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Dancing Queen",
+        "album": "Arrival",
+        "artista": "ABBA",
+        "genero": "Disco"
+    },
+    {
+        "nombre": "Let It Be",
+        "album": "Let It Be",
+        "artista": "The Beatles",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Wonderwall",
+        "album": "(What's the Story) Morning Glory?",
+        "artista": "Oasis",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Livin' on a Prayer",
+        "album": "Slippery When Wet",
+        "artista": "Bon Jovi",
+        "genero": "Rock"
+    },
+    {
+        "nombre": "Hey Ya!",
+        "album": "Speakerboxxx/The Love Below",
+        "artista": "OutKast",
+        "genero": "R&B"
+    },
+    {
+        "nombre": "Don't Stop Believin'",
+        "album": "Escape",
+        "artista": "Journey",
+        "genero": "Rock"
+    }
+]

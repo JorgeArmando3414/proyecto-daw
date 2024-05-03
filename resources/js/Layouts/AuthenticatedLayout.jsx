@@ -8,10 +8,11 @@ import {InertiaLink} from "@inertiajs/inertia-react";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [query, setQuery] = useState('');
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className="bg-white border-b-2 border-gray-100 top-0 fixed h-[7%] w-full">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -28,14 +29,19 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('lista.index')} active={route().current('lista.index')}>
                                     Mis Listas
                                 </NavLink>
+                                <NavLink href={route('profile.edit')} active={route().current('profile.edit')}>
+                                    Perfil
+                                </NavLink>
                             </div>
+                        </div>
+
+                        <div className={'w-[50%] items-center flex justify-between'}>
+                            <input className={'w-[80%]'} placeholder={'Busca una lista o usuario'} type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+                            <a className={'btn btn-warning'} href={`/resultados?query=${encodeURIComponent(query)}`}>Buscar</a>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 flex flex-row gap-6">
-                                <div>
-                                    <InertiaLink href={route('profile.edit')} className="btn btn-info">Perfil</InertiaLink>
-                                </div>
                                 <div>
                                     <InertiaLink href={route('logout')} method="post" as="button" className="btn btn-error">Salir</InertiaLink>
                                 </div>
@@ -92,7 +98,7 @@ export default function Authenticated({ user, header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white shadow">
+                <header className="bg-white shadow mt-[7vh]">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                 </header>
             )}
