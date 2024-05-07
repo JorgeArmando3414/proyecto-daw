@@ -6,11 +6,29 @@ use App\Models\Cancion;
 use App\Models\Lista;
 use App\Http\Requests\StoreListaRequest;
 use App\Http\Requests\UpdateListaRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ListaController extends Controller
 {
+
+    public function listasOfFollowedUsers()
+    {
+        $user = auth()->user();
+        // Fetch the list of users that the authenticated user is following
+        $followedUsers = $user->siguiendoObj;
+        // Retrieve the listas associated with the users followed by the authenticated user
+        $listasOfFollowedUsers = collect();
+        foreach ($followedUsers as $followedUser) {
+            $user = User::find($followedUser->id);
+            $listas = $user->listas()->orderBy('created_at', 'desc')->get();
+            $listasOfFollowedUsers = $listasOfFollowedUsers->merge($listas);
+//            $followedUser->listas
+        }
+        return response()->json($listasOfFollowedUsers);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CancionController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -25,6 +26,13 @@ Route::get('/', function () {
 });
 
 //Route::redirect('/', '/dashboard');
+
+Route::get('/listas/followed', [ListaController::class, 'listasOfFollowedUsers']);
+
+Route::post('/follow', [FollowController::class, 'follow']);
+Route::post('/unfollow', [FollowController::class, 'unfollow']);
+Route::get('/seguidores/{userId}', [FollowController::class, 'seguidores']);
+Route::get('/siguiendo/{userId}', [FollowController::class, 'siguiendo']);
 
 Route::get('/resultados', [SearchController::class, 'search'])->name('resultados');
 

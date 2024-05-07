@@ -11,6 +11,27 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function listas()
+    {
+        return $this->hasMany(Lista::class, 'creado_por');
+    }
+    public function follow(User $user)
+    {
+        $this->siguiendo()->attach($user->id,['created_at' => now(), 'updated_at' => now()]);
+    }
+    public function seguidos(){
+        return $this->belongsToMany(User::class, 'follows', 'usuario_seguido', 'usuario_siguiendo');
+    }
+    public function siguiendoObj(){
+        return $this->belongsToMany(User::class, 'follows', 'usuario_siguiendo', 'usuario_seguido');
+    }
+    public function siguiendo(){
+        return $this->belongsToMany(User::class, 'follows', 'usuario_siguiendo', 'usuario_seguido')->select('usuario_seguido');
+    }
+    public function esta_siguiendo(User $user){
+        return $this->siguiendo()->where('usuario_seguido', $user->id)->exists();
+    }
+
     /**
      * The attributes that are mass assignable.
      *
