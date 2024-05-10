@@ -11,6 +11,16 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
+    public function getDesc(){
+        return $this->desc;
+    }
+    public function getFotoPerfil(){
+        if($this->foto){
+            return asset($this->foto);
+        }
+        return asset('/fotos/default.gif');
+    }
     public function listas()
     {
         return $this->hasMany(Lista::class, 'creado_por');
@@ -41,6 +51,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'foto',
+        'desc',
     ];
 
     /**

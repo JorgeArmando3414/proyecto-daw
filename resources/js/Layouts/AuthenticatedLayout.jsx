@@ -29,7 +29,7 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('lista.index')} active={route().current('lista.index')}>
                                     Mis Listas
                                 </NavLink>
-                                <NavLink href={route('profile.edit')} active={route().current('profile.edit')}>
+                                <NavLink href={route('profile.show')} active={route().current('profile.show')}>
                                     Perfil
                                 </NavLink>
                             </div>
@@ -88,7 +88,7 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('profile.show')}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
