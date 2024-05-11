@@ -23,7 +23,7 @@ export default function Show({auth, foto, desc, listN}){
                             <li><b>Siguiendo:</b> </li>
                         </ul>
                         <div>
-                            <a href="" className={'btn btn-success text-white'}>Editar</a>
+                            <a href={route('profile.edit')} className={'btn btn-success text-white'}>Editar</a>
                         </div>
                     </div>
                     <p className={'p-2 rounded-xl bg-gray-500 h-[43%] text-white'}>{desc}</p>

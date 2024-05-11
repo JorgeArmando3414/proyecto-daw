@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FotoUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -43,13 +45,25 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $request->user()->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+    public function updatefoto(FotoUpdateRequest $request): RedirectResponse
+    {
+        $user = auth()->user();
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $path = $foto->store('public/fotos'); // Store file in storage/app/public/fotos directory
+            $user->foto = $path; // Save file path in user model
         }
 
-        $request->user()->save();
+        $user->save();
 
         return Redirect::route('profile.edit');
     }

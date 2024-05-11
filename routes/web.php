@@ -37,7 +37,7 @@ Route::get('/siguiendo/{userId}', [FollowController::class, 'siguiendo']);
 Route::get('/resultados', [SearchController::class, 'search'])->name('resultados');
 
 Route::middleware(['auth','verified'])->group(function (){
-    Route::get('/dashboard', fn()=> Inertia::render('Dashboard'))->name('dashboard');
+    Route::get('/inicio', fn()=> Inertia::render('Dashboard'))->name('dashboard');
 
     Route::resource('lista', ListaController::class);
 });
@@ -47,10 +47,11 @@ Route::middleware(['auth','verified'])->group(function (){
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/perfil/editar', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/perfil', [ProfileController::class, 'updatefoto'])->name('profile.updatefoto');
+    Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/perfil/ver', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 require __DIR__.'/auth.php';
