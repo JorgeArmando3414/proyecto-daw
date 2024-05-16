@@ -13,8 +13,7 @@ class FollowController extends Controller
         $userId = $request->input('userId');
         $user = auth()->user();
         $userToFollow = User::findOrFail($userId);
-
-        $user->follow($userToFollow);
+        $user->belongsToMany(User::class, 'follows', 'usuario_siguiendo', 'usuario_seguido')->select('usuario_seguido')->attach($userToFollow->id,['created_at' => now(), 'updated_at' => now()]);
 
         return response()->json(['message' => 'User followed successfully.']);
     }
@@ -25,21 +24,23 @@ class FollowController extends Controller
         $user = auth()->user();
         $otroUser = User::find($userId);
 
-        $user->siguiendo()->detach($otroUser->id);
+        $user->belongsToMany(User::class, 'follows', 'usuario_siguiendo', 'usuario_seguido')->select('usuario_seguido')->detach($otroUser->id);
         return response()->json(['message' => 'Unfollowed successfully'], 200);
     }
 
     public function seguidores($userId)
     {
         $user = User::findOrFail($userId);
-        $followed = $user->seguidos()->get();
+        $followed = $user->belongsToMany(User::class, 'follows', 'usuario_seguido', 'usuario_siguiendo')->select('usuario_siguiendo')->get();
         return response()->json($followed);
     }
 
     public function siguiendo($userId)
     {
         $user = User::findOrFail($userId);
-        $following = $user->siguiendo()->get();
+//        $following = $user->siguiendo()->get();
+        $following = $user->belongsToMany(User::class, 'follows', 'usuario_siguiendo', 'usuario_seguido')->select('usuario_seguido')->get();
+
         return response()->json($following);
     }
 }

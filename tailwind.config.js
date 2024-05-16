@@ -12,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            rotate: {
+                '360': '360deg',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

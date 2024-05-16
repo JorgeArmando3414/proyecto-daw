@@ -18,12 +18,13 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
 
-    public function show(){
-        $user = auth()->user();
+    public function show(User $user){
+//        $user = auth()->user();
         $foto = $user->getFotoPerfil();
         $listas = $user->listas()->get();
 
         return Inertia::render('Profile/Show', [
+            'user' => User::find($user),
             'foto' => $foto,
             'desc' => $user->getDesc(),
             'listN' => count($listas),
@@ -59,7 +60,7 @@ class ProfileController extends Controller
 
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
-            $path = $foto->store('public/fotos'); // Store file in storage/app/public/fotos directory
+            $path = $foto->store('fotos/', 'public');
             $user->foto = $path; // Save file path in user model
         }
 

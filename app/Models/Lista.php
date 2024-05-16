@@ -27,4 +27,9 @@ class Lista extends Model
     {
         return $this->belongsToMany(Cancion::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'creado_por');
+    }
 }

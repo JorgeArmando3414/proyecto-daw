@@ -16,9 +16,14 @@ class SearchController extends Controller
 
         $listas = Lista::where('nombre', 'like', "%$query%")->get();
 
+        $listasConCanciones = Lista::whereHas('cancions', function ($queryBuilder) use ($query) {
+            $queryBuilder->where('nombre', 'like', "%$query%");
+        })->get();
+
         return inertia('Resultados', [
             'users' => $users,
             'listas' => $listas,
+            'listasCanciones' => $listasConCanciones,
         ]);
     }
 

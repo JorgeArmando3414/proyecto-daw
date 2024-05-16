@@ -7,6 +7,7 @@ use App\Models\Lista;
 use App\Http\Requests\StoreListaRequest;
 use App\Http\Requests\UpdateListaRequest;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -22,7 +23,12 @@ class ListaController extends Controller
         $listasOfFollowedUsers = collect();
         foreach ($followedUsers as $followedUser) {
             $user = User::find($followedUser->id);
-            $listas = $user->listas()->orderBy('created_at', 'desc')->get();
+            $user->foto = $user->getFotoPerfil();
+            $listas = $user->listas()->with('cancions', 'usuario')->orderBy('created_at', 'desc')->get();
+            foreach ($listas as $lista) {
+                $lista->formateado_created_at = Carbon::parse($lista->created_at)->format('d-m-Y');
+                $lista->usuario = $user;
+            }
             $listasOfFollowedUsers = $listasOfFollowedUsers->merge($listas);
 //            $followedUser->listas
         }
@@ -37,7 +43,10 @@ class ListaController extends Controller
         $userListas = Lista::where('creado_por', auth()->id())->get();
         $canciones = Cancion::all();
 
-        $userListas->load('cancions');
+        $userListas->load('cancions', 'usuario');
+        foreach ($userListas as $lista) {
+            $lista->formateado_created_at = Carbon::parse($lista->created_at)->format('d-m-Y');
+        }
 
         return inertia('Lista/Index',[
             'userListas' => $userListas,

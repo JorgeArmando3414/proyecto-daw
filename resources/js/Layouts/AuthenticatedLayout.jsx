@@ -3,15 +3,16 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import {Link, usePage} from '@inertiajs/react';
 import {InertiaLink} from "@inertiajs/inertia-react";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [query, setQuery] = useState('');
+    const { auth } = usePage().props;
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-[93vh] bg-gray-100">
             <nav className="bg-white border-b-2 border-gray-100 top-0 fixed h-[7%] w-full">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
@@ -29,7 +30,7 @@ export default function Authenticated({ user, header, children }) {
                                 <NavLink href={route('lista.index')} active={route().current('lista.index')}>
                                     Mis Listas
                                 </NavLink>
-                                <NavLink href={route('profile.show')} active={route().current('profile.show')}>
+                                <NavLink href={route('profile.show', {user: auth.user.id})} active={route().current('profile.show')}>
                                     Perfil
                                 </NavLink>
                             </div>
@@ -88,7 +89,7 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.show')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('profile.show', {user: auth.user.id})}>Profile</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>

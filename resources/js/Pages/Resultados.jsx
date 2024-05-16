@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head} from "@inertiajs/react";
 import {useEffect, useState} from "react";
 
-export default function Resultados ({auth, users, listas}){
+export default function Resultados ({auth, users, listas, listasCanciones}){
     const [usuariosSeguidos,setUsuariosSeguidos] = useState([]);
 
     useEffect(()=>{
@@ -34,7 +34,7 @@ export default function Resultados ({auth, users, listas}){
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Resultados</h2>}
         >
             <Head title="Resultados"/>
-            {listas.length>0 || users.length>0 ?
+            {listasCanciones.length>0 || listas.length>0 || users.length>0 ?
                 (<div className={'mx-auto max-w-7xl mt-[5vh] gap-4 grid grid-flow-col'}>
                     {listas.map(lista => (
                         <h3 key={lista.id}>{lista.nombre}</h3>
@@ -44,6 +44,9 @@ export default function Resultados ({auth, users, listas}){
                             <h3>{user.username}</h3>
                             {estaSiguiendo(user.id)?(<button className="btn bg-red-600 rounded-t-none text-white border-none" onClick={() => unfollowUser(user.id)}>Unfollow</button>):(<button className="btn border-none rounded-t-none bg-blue-600 text-white" onClick={() => followUser(user.id)}>Follow</button>)}
                         </div>
+                    ))}
+                    {listasCanciones.map(listac =>(
+                        <h3 key={listac.id}>Esta lista contiene una cancion: {listac.nombre}</h3>
                     ))}
                 </div>) :
                 (<div className={'mx-auto mt-[5vh] max-w-7xl'}>

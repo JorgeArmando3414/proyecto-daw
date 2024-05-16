@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import {useEffect, useState} from "react";
+import CartaLista from "@/Pages/CartaLista.jsx";
 
 export default function Dashboard({ auth }) {
     const [listasOfFollowedUsers, setListasOfFollowedUsers] = useState([]);
@@ -27,9 +28,9 @@ export default function Dashboard({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-center">
                         {listasOfFollowedUsers.map(lista => (
-                            <h3 key={lista.id}>{lista.nombre}</h3>
+                            <CartaLista key={lista.id} user={auth.user} lista={lista}/>
                         ))}
                     </div>
                 </div>
