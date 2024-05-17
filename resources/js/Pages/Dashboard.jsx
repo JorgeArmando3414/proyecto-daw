@@ -28,7 +28,7 @@ export default function Dashboard({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-center">
+                    <div className="bg-black py-4 overflow-hidden shadow-sm sm:rounded-lg flex justify-center flex-col">
                         {listasOfFollowedUsers.map(lista => (
                             <CartaLista key={lista.id} user={auth.user} lista={lista}/>
                         ))}

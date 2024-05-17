@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\CancionController;
+//use App\Http\Controllers\CancionController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\ProfileController;
@@ -36,9 +37,11 @@ Route::get('/siguiendo/{userId}', [FollowController::class, 'siguiendo']);
 
 Route::get('/resultados', [SearchController::class, 'search'])->name('resultados');
 
+Route::get('/ver/comentarios', [ComentarioController::class, 'index'])->name('comentarios.index');
+
 Route::middleware(['auth','verified'])->group(function (){
     Route::get('/inicio', fn()=> Inertia::render('Dashboard'))->name('dashboard');
-
+    Route::resource('comentarios', ComentarioController::class);
     Route::resource('lista', ListaController::class);
 });
 

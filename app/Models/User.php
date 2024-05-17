@@ -13,6 +13,10 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
 
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'id_autor');
+    }
     public function getDesc(){
         return $this->desc;
     }

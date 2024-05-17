@@ -24,7 +24,7 @@ class ListaController extends Controller
         foreach ($followedUsers as $followedUser) {
             $user = User::find($followedUser->id);
             $user->foto = $user->getFotoPerfil();
-            $listas = $user->listas()->with('cancions', 'usuario')->orderBy('created_at', 'desc')->get();
+            $listas = $user->listas()->with('cancions', 'usuario')->orderBy('updated_at', 'desc')->get();
             foreach ($listas as $lista) {
                 $lista->formateado_created_at = Carbon::parse($lista->created_at)->format('d-m-Y');
                 $lista->usuario = $user;

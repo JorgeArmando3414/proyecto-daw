@@ -23,6 +23,10 @@ class Lista extends Model
         'updated_at',
     ];
 
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'id_autor');
+    }
     public function cancions()
     {
         return $this->belongsToMany(Cancion::class);
