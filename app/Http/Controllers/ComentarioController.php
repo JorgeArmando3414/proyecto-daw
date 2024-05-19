@@ -40,5 +40,6 @@ class ComentarioController extends Controller
     public function destroy($id){
         $comentario = Comentario::find($id);
         $comentario->delete();
+        return redirect()->back()->with('success', 'Comentario eliminado');
     }
 }

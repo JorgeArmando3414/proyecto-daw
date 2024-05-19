@@ -12,7 +12,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-
+    public function puntuaciones()
+    {
+        return $this->hasMany(PuntuacionLista::class, 'id_usuario');
+    }
     public function comentarios()
     {
         return $this->hasMany(Comentario::class, 'id_autor');

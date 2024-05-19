@@ -5,6 +5,7 @@ use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PuntuacionListaController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::middleware(['auth','verified'])->group(function (){
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/puntuaciones', [PuntuacionListaController::class, 'store'])->name('puntuaciones.store');
+    Route::get('/listas/{id_lista}/puntuaciones', [PuntuacionListaController::class, 'show'])->name('puntuaciones.show');
     Route::get('/perfil/editar', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/perfil', [ProfileController::class, 'updatefoto'])->name('profile.updatefoto');

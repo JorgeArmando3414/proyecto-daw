@@ -1,21 +1,70 @@
-import {useState} from "react";
-import Index from './Comentario/Index.jsx';
+import {useEffect, useState} from "react";
+import {router, useForm} from "@inertiajs/react";
+import ComentIndex from './Comentario/Index.jsx';
 
 export default function CartaLista({user, lista, openModal, borrarLista}){
+    const [loading, setLoading] = useState(true);
     const [visible , setVisible] = useState(false);
     const fotoDefault = '/fotos/default.gif'
     const fotoUser = `storage/${lista.usuario.foto}`;
     const perfilUrl = route('profile.show', { user: lista.usuario.id });
     const autorizado = user.id === lista.creado_por;
     const [showModalComentarios, setShowModalComentarios] = useState(false);
+    const [puntuacionesOfLista, setPuntuacionesOfLista] = useState([]);
+    const [puntuacion,setPuntuacion] = useState(0);
+    const { data: ratingData, setData: setRatingData, post: postRating } = useForm({
+        id_lista: lista.id,
+        id_usuario: user.id,
+        puntuacion: 0,
+    });
+    const handleRatingChange = (rating) => {
+        setPuntuacion(rating);
+        setRatingData({ ...ratingData, puntuacion: rating });
+    };
+    const fetchPuntuaciones = async () => {
+        try {
+            const response = await fetch(`/listas/${lista.id}/puntuaciones`);
+            const data = await response.json();
+            setPuntuacionesOfLista(data);
+        } catch (error) {
+            console.error('Error fetching puntuaciones:', error);
+        }
+    };
+    useEffect(()=>{
+        if (ratingData.puntuacion > 0) {
+            postRating(route("puntuaciones.store"), {
+                data: ratingData,
+                onSuccess: () => {
+                    console.log("Puntuación creada");
+                },
+                onError: (error) => {
+                    console.log(error);
+                }
+            });
+        }
+        fetchPuntuaciones();
+    }, [ratingData]);
 
+    useEffect(() => {
+        if (puntuacionesOfLista.user_puntuacion) {
+            setPuntuacion(puntuacionesOfLista.user_puntuacion);
+            setLoading(false);
+        }
+    }, [puntuacionesOfLista]);
+
+    useEffect(() => {
+        fetchPuntuaciones();
+    }, []);
     const cambiaVista = () =>{
         setVisible(!visible);
-    }
-
+    };
     const openModalComentarios = () => {
         setShowModalComentarios(true);
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return(
         <>
@@ -27,11 +76,24 @@ export default function CartaLista({user, lista, openModal, borrarLista}){
                     <div className={`${visible? " border-b-4 border-green-500 rounded-t-xl ":" rounded-xl "} w-full flex flex-row justify-between bg-black`}>
                         <div className={'flex flex-col items-start'}>
                             <h3 className={'text-2xl font-bold ml-4 text-nowrap'}>{lista.nombre}</h3>
-                            <p className={'ml-4'}>@{lista.usuario.username} - {lista.formateado_created_at}</p>
+                            <p className={'ml-4'}>@{lista.usuario.username} - {lista.formateado_created_at} - Media Valoración: {puntuacionesOfLista.average_puntuacion}</p>
                         </div>
                         <div className={'flex justify-end w-[50%]'}>
-                            <div className={'flex flex-row justify-center w-[80%]'}>
-                                <button onClick={()=>openModalComentarios()} className="btn bg-purple-500 border-0 text-black hover:bg-purple-600 rounded-none h-full">Comentarios</button>
+                            <div className={'flex flex-row justify-center w-[90%] items-center'}>
+                                <div className="rating">
+                                    {[1, 2, 3, 4, 5].map((rating) => (
+                                        <input
+                                            key={rating}
+                                            type="radio"
+                                            className="mask mask-star-2 bg-green-500"
+                                            checked={rating===puntuacion}
+                                            onClick={() => handleRatingChange(rating)}
+                                            readOnly
+                                        />
+                                    ))}
+                                </div>
+                                {/*<button className={'btn bg-orange-500 border-0 text-black hover:bg-orange-600 rounded-none h-full'}>Puntuar</button>*/}
+                                <button onClick={()=>openModalComentarios()} className="btn bg-purple-500 border-0 text-black hover:bg-purple-600 rounded-none h-full ml-2">Comentarios</button>
                                 {autorizado && <button onClick={openModal}
                                          className="btn btn-info rounded-none h-full">Editar</button>}
                                 {autorizado && <button onClick={borrarLista}
@@ -71,7 +133,7 @@ export default function CartaLista({user, lista, openModal, borrarLista}){
                     </div>
                 </div>
             </div>
-            {showModalComentarios && <Index lista={lista} user={user} setShowModalComentarios={setShowModalComentarios}/>}
+            {showModalComentarios && <ComentIndex lista={lista} user={user} setShowModalComentarios={setShowModalComentarios}/>}
         </>
     )
 }

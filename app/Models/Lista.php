@@ -31,7 +31,10 @@ class Lista extends Model
     {
         return $this->belongsToMany(Cancion::class);
     }
-
+    public function puntuaciones()
+    {
+        return $this->hasMany(PuntuacionLista::class, 'id_lista');
+    }
     public function usuario()
     {
         return $this->belongsTo(User::class, 'creado_por');

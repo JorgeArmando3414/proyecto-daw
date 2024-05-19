@@ -46,6 +46,7 @@ class ListaController extends Controller
         $userListas->load('cancions', 'usuario');
         foreach ($userListas as $lista) {
             $lista->formateado_created_at = Carbon::parse($lista->created_at)->format('d-m-Y');
+            $lista->puntuacion_media = $lista->puntuaciones->avg('puntuacion');
         }
 
         return inertia('Lista/Index',[
