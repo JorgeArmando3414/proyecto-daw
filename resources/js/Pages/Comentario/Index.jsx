@@ -58,7 +58,7 @@ export default function Index({ auth, lista, user, setShowModalComentarios}){
     return(
         <>
             <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50 ">
-                <div className="modal-container bg-black border-2 border-white p-4 rounded-lg overflow-y-auto max-h-[80vh] max-w-[50vw]">
+                <div className="modal-container bg-black border-2 border-white p-4 rounded-lg overflow-y-auto max-h-[80vh] min-w-[50vw]">
                     <div className="modal-header h-[20%] flex flex-row justify-between border-b-2 sticky-top-0 border-black items-center">
                         <h2 className="text-lg font-semibold">{lista.nombre}</h2>
                         <button className={"btn rounded-full"} onClick={() => setShowModalComentarios(false)}>X</button>
@@ -68,13 +68,13 @@ export default function Index({ auth, lista, user, setShowModalComentarios}){
                             <>
                                 <div className={'flex flex-row items-center gap-4 bg-gray-800 rounded-2xl max-w-[93%] w-fit p-2'}>
                                     <a href={perfilUrl(comentario.id_autor)} className="min-w-[60px] block h-[60px] rounded-full overflow-hidden hover:border-4 duration-300 hover:origin-center hover:rotate-360 hover:border-green-500">
-                                        <img className={'object-cover w-full h-full'} src={`storage/${comentario.autor.foto}`} alt="Foto de perfil"/>
+                                        <img className={'object-cover w-full h-full'} src={user.foto ? `/storage/${user.foto}` : '/fotos/default.gif'}  alt="Foto de perfil"/>
                                     </a>
                                     <div className={'max-w-[90%]'}>
                                         <p className={'h-min text-xs text-gray-400'}>@{comentario.autor.username} - {comentario.fecha_publicacion}</p>
                                         <p className={'h-min break-all flex max-w-full'} key={comentario.id}>{comentario.contenido}</p>
                                     </div>
-                                    {user.id === comentario.autor.id && <button onClick={()=>borrarComentario(comentario)} className={'btn btn-error rounded-full'}>X</button>}
+                                    {(user.id === comentario.autor.id || user.rol === 'admin') && <button onClick={()=>borrarComentario(comentario)} className={'btn btn-error rounded-full'}>X</button>}
                                 </div>
                             </>
                         ))}
@@ -82,7 +82,7 @@ export default function Index({ auth, lista, user, setShowModalComentarios}){
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4 flex flex-row gap-2 w-full items-end justify-between sticky-bottom-0">
                             <a href={perfilUrl(user.id)} className="w-[60px] block h-[60px] mt-4 rounded-full overflow-hidden hover:border-4 duration-300 hover:origin-center hover:rotate-360 hover:border-green-500">
-                                <img className={'object-cover w-full h-full'} src={`storage/${user.foto}`} alt="Foto de perfil"/>
+                                <img className={'object-cover w-full h-full'} src={`${user.foto?'storage'/user.foto:'/fotos/default.gif'}`} alt="Foto de perfil"/>
                             </a>
                             <div className={'flex flex-col w-[70%]'}>
                                 <label htmlFor="contenido">Comentario:</label>

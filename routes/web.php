@@ -1,6 +1,7 @@
 <?php
 
 //use App\Http\Controllers\CancionController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ListaController;
@@ -44,6 +45,12 @@ Route::middleware(['auth','verified'])->group(function (){
     Route::get('/inicio', fn()=> Inertia::render('Dashboard'))->name('dashboard');
     Route::resource('comentarios', ComentarioController::class);
     Route::resource('lista', ListaController::class);
+});
+
+Route::middleware(['auth','rol:admin'])->group(function () {
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
+    Route::post('/admin/users/{user}/asignar-rol', [AdminController::class, 'asignarRol'])->name('admin.users.asignarRol');
+    Route::post('/admin/users/{user}/quitar-rol', [AdminController::class, 'quitarRol'])->name('admin.users.quitarRol');
 });
 
 //Route::get('/dashboard', function () {

@@ -57,6 +57,7 @@ class User extends Authenticatable
         'password',
         'foto',
         'desc',
+        'rol',
     ];
 
     /**

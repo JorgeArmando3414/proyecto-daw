@@ -45,8 +45,16 @@ class PuntuacionListaController extends Controller
             ->where('id_usuario', auth()->id())
             ->value('puntuacion');
 
+        if($userPuntuacion == null){
+            $userPuntuacion = 0;
+        }
+
+        if($puntuaciones==null){
+            $averagePuntuacion = 0;
+        }
+
         return response()->json([
-            'puntuaciones' => $puntuaciones,
+//            'puntuaciones' => $puntuaciones,
             'average_puntuacion' => $averagePuntuacion,
             'user_puntuacion' => $userPuntuacion,
         ]);

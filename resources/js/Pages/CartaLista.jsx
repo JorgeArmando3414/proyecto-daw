@@ -46,7 +46,7 @@ export default function CartaLista({user, lista, openModal, borrarLista}){
     }, [ratingData]);
 
     useEffect(() => {
-        if (puntuacionesOfLista.user_puntuacion) {
+        if (puntuacionesOfLista.user_puntuacion >=0) {
             setPuntuacion(puntuacionesOfLista.user_puntuacion);
             setLoading(false);
         }
