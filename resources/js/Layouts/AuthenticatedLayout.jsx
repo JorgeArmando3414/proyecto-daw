@@ -45,7 +45,7 @@ export default function Authenticated({ user, header, children }) {
                             <div className="ms-3 flex flex-row gap-6">
                                 <div>
                                     {user.rol === 'admin' && <InertiaLink href={route('admin.users.index')} method="get" as="button"
-                                                  className="btn btn-info">Administrar roles</InertiaLink>}
+                                                  className="btn btn-info">Administrar</InertiaLink>}
                                 </div>
                                 <div>
                                     <InertiaLink href={route('logout')} method="post" as="button" className="btn btn-error">Salir</InertiaLink>

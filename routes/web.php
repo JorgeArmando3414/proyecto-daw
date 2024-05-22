@@ -1,7 +1,7 @@
 <?php
 
-//use App\Http\Controllers\CancionController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CancionController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ListaController;
@@ -41,7 +41,7 @@ Route::get('/resultados', [SearchController::class, 'search'])->name('resultados
 
 Route::get('/ver/comentarios', [ComentarioController::class, 'index'])->name('comentarios.index');
 
-Route::middleware(['auth','verified'])->group(function (){
+Route::middleware(['auth'])->group(function (){
     Route::get('/inicio', fn()=> Inertia::render('Dashboard'))->name('dashboard');
     Route::resource('comentarios', ComentarioController::class);
     Route::resource('lista', ListaController::class);
@@ -51,6 +51,7 @@ Route::middleware(['auth','rol:admin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users.index');
     Route::post('/admin/users/{user}/asignar-rol', [AdminController::class, 'asignarRol'])->name('admin.users.asignarRol');
     Route::post('/admin/users/{user}/quitar-rol', [AdminController::class, 'quitarRol'])->name('admin.users.quitarRol');
+    Route::post('/subir-canciones', [CancionController::class, 'subirCanciones'])->name('subirCanciones');
 });
 
 //Route::get('/dashboard', function () {

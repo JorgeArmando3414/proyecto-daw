@@ -15,4 +15,11 @@ class Cancion extends Model
     {
         return $this->belongsToMany(Lista::class);
     }
+
+    protected $fillable = [
+        'nombre',
+        'album',
+        'artista',
+        'genero',
+    ];
 }
