@@ -12,13 +12,13 @@ export default function Authenticated({ user, header, children }) {
     const { auth } = usePage().props;
 
     return (
-        <div className="min-h-[93vh] bg-gray-100">
-            <nav className="bg-white border-b-2 border-gray-100 top-0 fixed h-[7%] w-full">
+        <div className="min-h-[93vh] bg-[#7a0101]">
+            <nav className="bg-sky-400 top-0 fixed h-[7%] w-full">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
+                                <Link href="/inicio">
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
@@ -37,18 +37,18 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className={'w-[50%] items-center flex justify-between'}>
-                            <input className={'w-[80%]'} placeholder={'Busca una lista o usuario'} type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
-                            <a className={'btn btn-warning'} href={`/resultados?query=${encodeURIComponent(query)}`}>Buscar</a>
+                            <input className={'w-[80%] focus:outline-transparent focus:ring-0 rounded-xl shadow-none border-0 focus:shadow-md focus:shadow-sky-600 text-black'} placeholder={'Busca una lista o usuario'} type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+                            <a className={'btn btn-warning hover:text-white'} href={`/resultados?query=${encodeURIComponent(query)}`}>Buscar</a>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
                             <div className="ms-3 flex flex-row gap-6">
                                 <div>
                                     {user.rol === 'admin' && <InertiaLink href={route('admin.users.index')} method="get" as="button"
-                                                  className="btn btn-info">Administrar</InertiaLink>}
+                                                  className="btn btn-secondary hover:text-white">Administrar</InertiaLink>}
                                 </div>
                                 <div>
-                                    <InertiaLink href={route('logout')} method="post" as="button" className="btn btn-error">Salir</InertiaLink>
+                                    <InertiaLink href={route('logout')} method="post" as="button" className="btn btn-error hover:text-white">Salir</InertiaLink>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +103,8 @@ export default function Authenticated({ user, header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white shadow mt-[7vh]">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                <header className="bg-black shadow mt-[7vh]">
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white">{header}</div>
                 </header>
             )}
 

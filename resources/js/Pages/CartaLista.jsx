@@ -2,11 +2,11 @@ import {useEffect, useState} from "react";
 import {router, useForm} from "@inertiajs/react";
 import ComentIndex from './Comentario/Index.jsx';
 
-export default function CartaLista({user, lista, openModal, borrarLista}){
+export default function CartaLista({user, lista, openModal, borrarLista, oculta}){
     const [loading, setLoading] = useState(true);
     const [visible , setVisible] = useState(false);
     const fotoDefault = '/fotos/default.gif'
-    const fotoUser = `storage/${lista.usuario.foto}`;
+    const fotoUser =lista.usuario.foto ? `/storage/${lista.usuario.foto}`:'/fotos/default.gif';
     const perfilUrl = route('profile.show', { user: lista.usuario.id });
     const autorizado = user.id === lista.creado_por;
     const [showModalComentarios, setShowModalComentarios] = useState(false);
@@ -63,14 +63,14 @@ export default function CartaLista({user, lista, openModal, borrarLista}){
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className={'skeleton h-[5vh] rounded-2xl w-[75%] flex justify-center items-center text-white'}>Cargando...</div>;
     }
 
     return(
         <>
-            <div className={'flex flex-row w-full justify-center items-start'}>
-                <a href={perfilUrl} className="w-[80px] h-[80px] mt-4 rounded-full overflow-hidden hover:border-4 duration-300 hover:origin-center hover:rotate-360 hover:border-green-500">
-                    <img className={'object-cover w-full h-full'} src={`${lista.usuario.foto?fotoUser:fotoDefault}`} alt="Foto de perfil"/>
+            <div className={`${oculta?' hidden ':' '} flex flex-row w-full justify-center items-start`}>
+                <a href={perfilUrl} className="w-[80px] h-[80px] mt-2 rounded-full overflow-hidden hover:border-4 duration-300 hover:origin-center hover:rotate-360 hover:border-green-500">
+                    <img className={'object-cover w-full h-full'} src={fotoUser} alt="Foto de perfil"/>
                 </a>
                 <div key={lista.id} className={`border-4 border-green-500 rounded-2xl text-white my-4 ml-2 w-[75%]`}>
                     <div className={`${visible? " border-b-4 border-green-500 rounded-t-xl ":" rounded-xl "} w-full flex flex-row justify-between bg-black`}>
@@ -85,7 +85,7 @@ export default function CartaLista({user, lista, openModal, borrarLista}){
                                         <input
                                             key={rating}
                                             type="radio"
-                                            className="mask mask-star-2 bg-green-500"
+                                            className="mask mask-star-2 bg-green-500 checked:bg-green-500"
                                             checked={rating===puntuacion}
                                             onClick={() => handleRatingChange(rating)}
                                             readOnly

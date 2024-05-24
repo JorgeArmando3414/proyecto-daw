@@ -28,7 +28,7 @@ export default function UpdateFotoForm ({className = '' }){
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Personalización del Perfil</h2>
+                <h2 className="text-lg font-medium text-white">Personalización del Perfil</h2>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6" encType={"multipart/form-data"}>
@@ -38,7 +38,7 @@ export default function UpdateFotoForm ({className = '' }){
                         id={"foto"}
                         name={"foto"}
                         type={"file"}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full border-info file-input file-input-bordered file-input-info"
                         onChange={(e) => setData('foto', e.target.files[0])}
                     />
                     <InputError className="mt-2" message={errors.foto} />

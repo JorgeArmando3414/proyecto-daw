@@ -7,12 +7,18 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status, canResetPassword, registroRef }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         login: '',
         password: '',
         remember: false,
     });
+
+    const handleScrollToRegistro = () => {
+        if (registroRef && registroRef.current) {
+            registroRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         return () => {
@@ -22,76 +28,62 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('login'));
     };
 
     return (
-        <GuestLayout>
+        // <GuestLayout>
+        <>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="login" value="Email / Username" />
+            <div className={'h-[100vh] w-full box-border flex flex-row bg-[#7a0101]'}>
+                <div className={'flex flex-col w-[40%] h-full bg-[#420101] py-12 justify-between items-center'}>
+                    <form onSubmit={submit} className={'w-[60%] h-[40%] rounded-xl bg-black/[0.5] py-6 px-4 flex flex-col justify-between'}>
+                            <div>
+                                <InputLabel htmlFor="login" value="Email / Nombre de Usuario" />
+                                <TextInput
+                                    id="login"
+                                    type="text"
+                                    name="login"
+                                    value={data.login}
+                                    className="mt-1 block w-full"
+                                    autoComplete="login"
+                                    isFocused={true}
+                                    onChange={(e) => setData('login', e.target.value)}
+                                />
+                                <InputError message={errors.username} className="mt-2" />
+                            </div>
 
-                    <TextInput
-                        id="login"
-                        type="text"
-                        name="login"
-                        value={data.login}
-                        className="mt-1 block w-full"
-                        autoComplete="login"
-                        isFocused={true}
-                        onChange={(e) => setData('login', e.target.value)}
-                    />
+                            <div className="mt-4">
+                                <InputLabel htmlFor="password" value="Contraseña" />
+                                <TextInput
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
+                                    className="mt-1 block w-full bg-white"
+                                    autoComplete="current-password"
+                                    onChange={(e) => setData('password', e.target.value)}
+                                />
+                                <InputError message={errors.password} className="mt-2" />
+                            </div>
 
-                    {/*<InputError message={errors.email} className="mt-2" />*/}
+                            <div className="flex items-center  justify-center mt-4">
+                                <button className="ms-4 btn btn-info" disabled={processing}>
+                                    Entrar
+                                </button>
+                            </div>
+                        </form>
+                    <div className={'flex flex-row items-center gap-4'}>
+                        <h3 className={'text-white font-semibold'}>Aun no estás registrado?</h3>
+                        <button onClick={handleScrollToRegistro} className={'btn btn-warning'}>Registrate</button>
+                    </div>
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
-                        />
-                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
-                    </label>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
+            </div>
+        </>
+        // {/*</GuestLayout>*/}
     );
 }

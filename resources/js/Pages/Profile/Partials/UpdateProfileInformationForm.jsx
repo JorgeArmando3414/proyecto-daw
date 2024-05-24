@@ -23,26 +23,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Información del Perfil</h2>
+                <h2 className="text-lg font-medium text-white">Información del Perfil</h2>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-white">
                     Actualiza tus datos de usuario
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                {/*<div>*/}
-                {/*    <InputLabel htmlFor="foto" value="Foto de perfil" />*/}
-                {/*    <TextInput*/}
-                {/*        id="foto"*/}
-                {/*        name="foto"*/}
-                {/*        type="file"*/}
-                {/*        className="mt-1 block w-full"*/}
-                {/*        onChange={(e) => setData('foto', e.target.files[0])}*/}
-                {/*    />*/}
-                {/*    <InputError className="mt-2" message={errors.foto} />*/}
-                {/*</div>*/}
-
+            <form onSubmit={submit} className="mt-6 space-y-6 text-black">
                 <div>
                     <InputLabel htmlFor="username" value="Nombre de usuario" />
                     <TextInput

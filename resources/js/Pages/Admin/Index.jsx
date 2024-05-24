@@ -60,7 +60,7 @@ export default function Index({auth, users: initialUsers}){
     return(
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Administrar Usuarios y Canciones</h2>}
+            header={<h2 className="font-semibold text-xl text-white leading-tight">Administrar Usuarios y Canciones</h2>}
         >
             <Head title="Administrar Usuarios" />
             <div className={'py-12'}>
@@ -71,11 +71,11 @@ export default function Index({auth, users: initialUsers}){
                     </div>
                     <div className="bg-gray-950 overflow-hidden shadow-sm sm:rounded-lg flex flex-col items-center pb-6 gap-4">
                         <table className={'table'}>
-                            <thead>
+                            <thead className={'text-white'}>
                                 <tr>
-                                    <th>Usuario</th>
-                                    <th>Creado el</th>
-                                    <th>Cambiar rol</th>
+                                    <th className={'font-light'}>Usuario</th>
+                                    <th className={'font-light'}>Creado el</th>
+                                    <th className={'font-light'}>Cambiar rol</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,14 +110,15 @@ export default function Index({auth, users: initialUsers}){
                 </div>
             </div>
             <dialog id="my_modal_3" className="modal w-[90%]">
-                <div className="modal-box">
+                <div className="modal-box bg-black text-white">
                     <form method="post" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="file">JSON con nuevas canciones:</label>
+                            <label htmlFor="file">Archivo JSON con nuevas canciones:</label>
                             <input type="file" id="file" accept=".json" onChange={handleFileChange} className="file-input file-input-bordered file-input-info w-full" />
+                            <p className={'text-sm'}>Las canciones deben tener nombre, album, artista y genero</p>
                         </div>
                         <div className={'flex flex-row w-full justify-between mt-4'}>
-                            <button type="submit" className={'btn btn-info'}>Aceptar</button>
+                            <button type="submit" className={'btn btn-success'}>Aceptar</button>
                             <button type="button" onClick={()=>document.getElementById('my_modal_3').close()} className={'btn btn-error'}>Cancelar</button>
                         </div>
                     </form>

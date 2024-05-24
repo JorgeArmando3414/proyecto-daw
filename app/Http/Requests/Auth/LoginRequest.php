@@ -48,6 +48,14 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'username' => 'El nombre de usuario no es correcto',
+            'password' => 'La contraseña no es correcta'
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *

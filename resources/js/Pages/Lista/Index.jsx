@@ -33,16 +33,16 @@ export default function Index({ auth, userListas, allCanciones}) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Mis Listas</h2>}
+            header={<h2 className="font-semibold text-xl text-white leading-tight">Mis Listas</h2>}
         >
             <Head title="Mis Listas" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-gray-950 overflow-hidden shadow-sm sm:rounded-lg flex flex-col items-center pb-6 gap-4">
-                        <div className="p-6 text-gray-900 flex flex-row justify-between w-[73%]">
+                    <div className="bg-gray-950/[0.7] min-h-[70vh] overflow-hidden shadow-sm sm:rounded-lg flex flex-col items-center pb-6 gap-4">
+                        <div className="px-28 py-6 text-gray-900 flex flex-row justify-between w-[100%]">
                             <h3 className={'font-bold text-3xl text-white'}>Mis Listas!</h3>
-                            <button onClick={()=> setShowModal2(true)} className={'btn btn-success text-white'}>Nueva Lista</button>
+                            <button onClick={()=> setShowModal2(true)} className={'btn btn-success hover:text-white'}>Nueva Lista</button>
                         </div>
                         {userListas.map(lista => (
                             <CartaLista key={lista.id} user={auth.user} lista={lista} openModal={()=>openModal(lista)} borrarLista={()=>borrarLista(lista)}/>
