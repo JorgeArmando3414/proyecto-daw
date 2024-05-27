@@ -85,7 +85,7 @@ export default function Index({auth, users: initialUsers}){
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle w-12 h-12">
-                                                <img src={usuario.foto ? `/storage/${usuario.foto}` : '/fotos/default.gif'}
+                                                <img src={usuario.foto ? `/storage/${usuario.foto}` : '/fotos/fotoDefault.jpg'}
                                                      alt="foto usuario"/>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@ export default function Index({auth, users: initialUsers}){
                         <div>
                             <label htmlFor="file">Archivo JSON con nuevas canciones:</label>
                             <input type="file" id="file" accept=".json" onChange={handleFileChange} className="file-input file-input-bordered file-input-info w-full" />
-                            <p className={'text-sm'}>Las canciones deben tener nombre, album, artista y genero</p>
+                            <p className={'text-sm'}>Las canciones deben tener nombre, album, artista y género</p>
                         </div>
                         <div className={'flex flex-row w-full justify-between mt-4'}>
                             <button type="submit" className={'btn btn-success'}>Aceptar</button>

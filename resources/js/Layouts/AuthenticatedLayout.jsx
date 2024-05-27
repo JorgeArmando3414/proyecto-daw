@@ -19,7 +19,8 @@ export default function Authenticated({ user, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/inicio">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <img className={'block h-16 w-auto'} src="/fotos/logoApp.png" alt="logo"/>
+                                    {/*<ApplicationLogo className="block h-20 w-auto fill-current text-gray-800" />*/}
                                 </Link>
                             </div>
 
@@ -80,24 +81,22 @@ export default function Authenticated({ user, header, children }) {
                 </div>
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
+                    <div className="pt-2 pb-0 space-y-1 bg-gray-100">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
+                            Inicio
                         </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.show', {user: auth.user.id})}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
+                        <ResponsiveNavLink href={route('lista.index')} active={route().current('lista.index')}>
+                            Mis Listas
+                        </ResponsiveNavLink>
+                        {user.rol === 'admin' && <ResponsiveNavLink href={route('admin.users.index')} active={route().current('admin.users.index')}>
+                            Administrar
+                        </ResponsiveNavLink>}
+                        <ResponsiveNavLink href={route('profile.show', {user: auth.user.id})} active={route().current('profile.show')}>
+                            Perfil
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink className={'bg-red-200'} method="post" href={route('logout')} as="button">
+                            Salir
+                        </ResponsiveNavLink>
                     </div>
                 </div>
             </nav>

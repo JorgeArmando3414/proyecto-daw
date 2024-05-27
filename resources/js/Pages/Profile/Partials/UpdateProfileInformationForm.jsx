@@ -78,7 +78,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Datos actualizados</p>
+                        <p className="text-sm text-white">Datos actualizados</p>
                     </Transition>
                 </div>
             </form>

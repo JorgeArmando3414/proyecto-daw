@@ -5,8 +5,8 @@ import ComentIndex from './Comentario/Index.jsx';
 export default function CartaLista({user, lista, openModal, borrarLista, oculta}){
     const [loading, setLoading] = useState(true);
     const [visible , setVisible] = useState(false);
-    const fotoDefault = '/fotos/default.gif'
-    const fotoUser =lista.usuario.foto ? `/storage/${lista.usuario.foto}`:'/fotos/default.gif';
+    const fotoDefault = '/fotos/fotoDefault.jpg'
+    const fotoUser =lista.usuario.foto ? `/storage/${lista.usuario.foto}`:'/fotos/fotoDefault.jpg';
     const perfilUrl = route('profile.show', { user: lista.usuario.id });
     const autorizado = user.id === lista.creado_por;
     const [showModalComentarios, setShowModalComentarios] = useState(false);

@@ -7,7 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Login({ status, canResetPassword, registroRef }) {
+export default function Login({ status, registroRef }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         login: '',
         password: '',
@@ -42,7 +42,7 @@ export default function Login({ status, canResetPassword, registroRef }) {
                 <div className={'flex flex-col w-[40%] h-full bg-[#420101] py-12 justify-between items-center'}>
                     <form onSubmit={submit} className={'w-[60%] h-[40%] rounded-xl bg-black/[0.5] py-6 px-4 flex flex-col justify-between'}>
                             <div>
-                                <InputLabel htmlFor="login" value="Email / Nombre de Usuario" />
+                                <InputLabel htmlFor="login" value="Nombre de Usuario" />
                                 <TextInput
                                     id="login"
                                     type="text"
@@ -81,7 +81,13 @@ export default function Login({ status, canResetPassword, registroRef }) {
                         <button onClick={handleScrollToRegistro} className={'btn btn-warning'}>Registrate</button>
                     </div>
                 </div>
-
+                <div className={'flex flex-col w-[60%] h-full items-center justify-start'}>
+                    <div className={'w-full flex flex-row items-end justify-center my-16'}>
+                        <img className={'w-[30%]'} src="/fotos/logoApp.png" alt="logo"/>
+                        <p className={'text-7xl text-white font-bold'}>TrackHub</p>
+                    </div>
+                    <h1 className={'text-5xl text-white font-semibold w-[90%] p-4 bg-black/[0.4] rounded-xl'}>Inicia sesión para compartir tu gusto musical con el mundo</h1>
+                </div>
             </div>
         </>
         // {/*</GuestLayout>*/}

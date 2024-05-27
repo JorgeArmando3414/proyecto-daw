@@ -30,6 +30,7 @@ class SearchController extends Controller
         }
 
         return inertia('Resultados', [
+            'query' => $query,
             'users' => $users,
             'listas' => $listas,
             'listasCanciones' => $listasConCanciones,

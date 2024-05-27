@@ -27,7 +27,7 @@ class User extends Authenticatable
         if($this->foto){
             return Storage::url($this->foto);
         }
-        return asset('/fotos/default.gif');
+        return asset('/fotos/fotoDefault.jpg');
     }
     public function listas()
     {
@@ -67,7 +67,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+//        'remember_token',
     ];
 
     /**
@@ -78,7 +78,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+//            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

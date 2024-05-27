@@ -54,7 +54,7 @@ export default function UpdateFotoForm ({className = '' }){
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Datos actualizados</p>
+                        <p className="text-sm text-white">Foto actualizada</p>
                     </Transition>
                 </div>
             </form>

@@ -9,7 +9,7 @@ export default function Index({ auth, lista, user, setShowModalComentarios}){
         contenido: "",
         fecha_publicacion: new Date().toISOString().slice(0, 19).replace('T', ' '),
     });
-    const foto =user.foto? `/storage/${user.foto}`:'/fotos/default.gif';
+    const foto =user.foto? `/storage/${user.foto}`:'/fotos/fotoDefault.jpg';
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -71,7 +71,7 @@ export default function Index({ auth, lista, user, setShowModalComentarios}){
                             comentarios.map(comentario => (
                                 <div key={comentario.id} className={'flex flex-row items-center gap-4 bg-black/[0.6] rounded-2xl max-w-[93%] w-fit p-2'}>
                                     <a href={perfilUrl(comentario.id_autor)} className="w-[60px] block h-[60px] rounded-full overflow-hidden hover:border-4 duration-300 hover:origin-center hover:rotate-360 hover:border-green-500">
-                                        <img className={'object-cover w-full h-full'} src={comentario.autor.foto ? `/storage/${comentario.autor.foto} `: '/fotos/default.gif'} alt="Foto de perfil"/>
+                                        <img className={'object-cover w-full h-full'} src={comentario.autor.foto ? `/storage/${comentario.autor.foto} `: '/fotos/fotoDefault.jpg'} alt="Foto de perfil"/>
                                     </a>
                                     <div className={'max-w-[90%]'}>
                                         <p className={'h-min text-xs text-gray-400'}>@{comentario.autor.username} - {comentario.fecha_publicacion}</p>

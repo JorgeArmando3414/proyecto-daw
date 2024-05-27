@@ -3,7 +3,7 @@ import {Head} from "@inertiajs/react";
 import {useEffect, useState} from "react";
 import CartaLista from "@/Pages/CartaLista.jsx";
 
-export default function Resultados ({auth, users, listas, listasCanciones}){
+export default function Resultados ({auth,query, users, listas, listasCanciones}){
     const [usuariosSeguidos,setUsuariosSeguidos] = useState([]);
 
     useEffect(()=>{
@@ -32,7 +32,7 @@ export default function Resultados ({auth, users, listas, listasCanciones}){
     return(
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-white leading-tight">Resultados</h2>}
+            header={<h2 className="font-semibold text-xl text-white leading-tight">Resultados de '{query}':</h2>}
         >
             <Head title="Resultados"/>
             {listasCanciones.length>0 || listas.length>0 || users.length>0 ?
@@ -46,7 +46,7 @@ export default function Resultados ({auth, users, listas, listasCanciones}){
                                 <img className={'object-cover w-full h-[70%] rounded-t-xl'} src={user.foto ? `/storage/${user.foto}`:'/fotos/default.gif'} alt="foto perfil"/>
                                 <div className={'h-[30%]'}>
                                     <h3>{user.username}</h3>
-                                    {estaSiguiendo(user.id)?(<button className="btn bg-red-600 hover:bg-red-800 rounded-xl text-white border-none min-h-0 h-[65%]" onClick={() => unfollowUser(user.id)}>Unfollow</button>):(<button className="btn border-none rounded-lg bg-blue-600 hover:bg-blue-800 text-white min-h-0 h-[65%]" onClick={() => followUser(user.id)}>Follow</button>)}
+                                    {estaSiguiendo(user.id)?(<button className="btn bg-red-600 hover:bg-red-800 rounded-xl text-white border-none min-h-0 w-full rounded-t-none h-[65%]" onClick={() => unfollowUser(user.id)}>Unfollow</button>):(<button className="btn border-none rounded-lg bg-blue-600 hover:bg-blue-800 text-white min-h-0 w-full rounded-t-none h-[65%]" onClick={() => followUser(user.id)}>Follow</button>)}
                                 </div>
                             </div>
                         ))}

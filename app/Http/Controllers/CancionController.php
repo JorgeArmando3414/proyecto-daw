@@ -21,7 +21,6 @@ class CancionController extends Controller
             return response()->json(['error' => 'Invalid JSON file'], 400);
         }
 
-        // Update or create songs based on JSON data
         foreach ($data as $songData) {
             Cancion::updateOrCreate(
                 [

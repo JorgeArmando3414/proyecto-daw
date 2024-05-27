@@ -34,13 +34,10 @@ class PuntuacionListaController extends Controller
     {
         $lista = Lista::findOrFail($id_lista);
 
-        // Get puntuaciones for the specified lista
         $puntuaciones = PuntuacionLista::where('id_lista', $id_lista)->with('user')->get();
 
-        // Calculate average puntuacion for the lista
         $averagePuntuacion = $puntuaciones->avg('puntuacion');
 
-        // Get the puntuacion of the autor of the lista
         $userPuntuacion = PuntuacionLista::where('id_lista', $id_lista)
             ->where('id_usuario', auth()->id())
             ->value('puntuacion');
