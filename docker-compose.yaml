@@ -1,15 +1,13 @@
 #Nombre de la version
 version: "3.8"
-services:
-  mysql:
-    # image: mysql <- Esta es otra opcion si no hacemos el build
-    image: mysql
 
-    # Para no perder los datos cuando destryamos el contenedor, se guardara en ese derectorio
+services:
+  mysql-db:
+    image: mysql
     volumes:
       - ./datos:/var/lib/mysql
     ports:
-      - ${DB_PORT}:3306
+      - "3306:3306"
     environment:
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
@@ -18,11 +16,19 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin3  #Si no te pone por defecto el nombre_directorio-nombre_servicio
+    container_name: phpmyadmin3
     ports:
       - ${DB_PORT_PHPMYADMIN}:80
     depends_on:
-      - mysql
+      - mysql-db
     environment:
-      PMA_ARBITRARY: 1 #Para permitir acceder a phpmyadmin desde otra maquina
-      PMA_HOST: mysql
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql-db
+
+  laravel-docker:
+    container_name: laravel-docker
+    build: .
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "80:80"
